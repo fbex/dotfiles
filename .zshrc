@@ -130,7 +130,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias dotfiles="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-alias kitty_update="curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin"
 if [ -x "$(command -v exa)" ]; then
 	alias ls="exa --icons"
 	alias l="ls -la"
