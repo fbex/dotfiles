@@ -17,6 +17,11 @@ set termguicolors
 set background=dark
 autocmd vimenter * ++nested colorscheme gruvbox
 
-" other settings
+" relative line numbers
 set number
+set relativenumber
+" search settings
+set ignorecase
+set incsearch " show partial matches
+set hlsearch " highlight matches
 

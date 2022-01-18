@@ -12,21 +12,49 @@ set incsearch
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 
+" enable plugins
+set NERDTree
 
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
+" Set some rules
+set ideajoin "smart join with Shift+J
+set idearefactormode=keep "stay in normal mode when refactoring
 
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
+" settings
+set foldmethod=syntax
 
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
+" map spacebar to leader
+let mapleader = "\<Space>"
 
-map \fc <Action>(ReformatCode)
-map \fi <Action>(OptimizeImports)
-map \rr <Action>(Rerun)
-map \rc <Action>(RunClass)
+" run / debug
+map <leader>r <Action>(Rerun)
+map <leader>R <Action>(RunClass)
+map <leader>d <Action>(Debug)
+map <leader>b <Action>(ToggleLineBreakpoint)
 
+" other actions
+map <leader>q <Action>(ToggleDistractionFreeMode)
+map <leader>u <Action>(FindUsages)
+map <leader>i <Action>(Generate)
+map <leader>g <Action>(Git.Menu)
+map <leader>/ <Action>(ShowErrorDescription)
+map <leader>e <Action>(GotoNextError)
+map <leader>fc <Action>(ReformatCode)
+map <leader>fi <Action>(OptimizeImports)
+map <leader>t <Action>(Terminal.OpenInTerminal)
+
+" open windows
+map <leader>op <Action>(ActivateProjectToolWindow)
+map <leader>oc <Action>(ActivateCommitToolWindow)
+map <leader>og <Action>(ActivateVersionControlToolWindow)
+map <leader>of <Action>(ActivateFindToolWindow)
+map <leader>or <Action>(ActivateRunToolWindow)
+map <leader>od <Action>(ActivateDebugToolWindow)
+map <leader>ot <Action>(ActivateTerminalToolWindow)
+
+" other useful commands
+"ShowIntentionActions (Alt+Enter)
+"GotoDeclaration (Cmd+B)
+"Esc: LeaveActiveWindow
+"Shift+Esc: HideActiveWindow
 
 " Find more examples here: https://jb.gg/share-ideavimrc
