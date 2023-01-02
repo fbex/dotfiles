@@ -25,3 +25,6 @@ set ignorecase
 set incsearch " show partial matches
 set hlsearch " highlight matches
 
+" enable fzf (fuzzyfind)
+set rtp+=/opt/homebrew/opt/fzf
+
