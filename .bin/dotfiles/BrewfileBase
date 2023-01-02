@@ -18,14 +18,19 @@ brew 'ruby-install'
 brew 'yarn'
 
 cask 'adobe-acrobat-reader'
-cask 'amethyst'
+cask 'drawio'
 cask 'firefox'
 cask 'google-chrome'
 cask 'intellij-idea'
 cask 'istat-menus'
-cask 'karabiner-elements'
+cask 'iterm2'
 cask 'keepassxc'
-cask 'kitty'
 cask 'spotify'
-cask 'sublime-text'
+cask 'vlc'
+
+### removed
+#cask 'amethyst'
+#cask 'karabiner-elements'
+#cask 'kitty'
+#cask 'sublime-text'
 

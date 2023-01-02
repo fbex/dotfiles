@@ -5,5 +5,4 @@ cask 'adguard'
 cask 'discord'
 cask 'signal'
 cask 'tor-browser'
-cask 'whatsapp'
 
