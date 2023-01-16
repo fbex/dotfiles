@@ -26,7 +26,9 @@ Install the desired software sets:
 	/bin/bash $HOME/.bin/dotfiles/install.sh
 	brew bundle --file $HOME/.bin/dotfiles/BrewfileBase
 	brew bundle --file $HOME/.bin/dotfiles/BrewfilePersonal
+	/bin/bash $HOME/.bin/dotfiles/post-install.sh
 
 Manually install:
+- [powerlevel10k font](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
 - [sdkman](https://sdkman.io/install)
 

@@ -1,6 +1,14 @@
-export BAT_THEME="gruvbox-dark"
+if [ -f "/opt/homebrew/bin/brew" ]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -f "/usr/local/bin/brew" ]; then
+	eval "$(/usr/local/bin/brew shellenv)"
+fi
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if [ -f "${HOME}/.zprofile_work" ]; then
+	source "${HOME}/.zprofile_work"
+fi
+
+export BAT_THEME="gruvbox-dark"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
