@@ -1,7 +1,12 @@
 " IdeaVim Config
 "
+" Set <c-j> and <c-k> for Up/Down in IntelliJ preferences
+" to enable vim-like navigation in native IntelliJ windows.
+"
 " Blog post: https://towardsdatascience.com/the-essential-ideavim-remaps-291d4cd3971b
 " More examples: https://jb.gg/share-ideavimrc
+"
+" TODO: How to make C-J/K motions work for IntelliJ Menus?
 
 " -------- Settings ----------
 
@@ -35,7 +40,7 @@ Plug 'preservim/nerdtree'
 let g:NERDTreeMapActivateNode='l'
 let g:NERDTreeMapJumpParent='h'
 sethandler <c-n> a:vim
-map <c-n> :NERDTree<CR>
+map <c-n> :NERDTreeToggle<CR>
 
 Plug 'terryma/vim-multiple-cursors'
 "TODO: map keys! and learn + remaps here
@@ -53,103 +58,166 @@ Plug 'dbakker/vim-paragraph-motion'
 " The { and } motions also match blank lines, not just empty ones
 
 
-" --------- Remaps -----------
+" --------- Top-Level Keybindings -----------
 
 " map spacebar to leader
 let mapleader = " "
 
-" IdeaVim actions
-nnoremap \e :e ~/.ideavimrc<CR>
-nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
-nnoremap \t :action VimFindActionIdAction<CR>
+nmap \ :action ActivateTerminalToolWindow<CR>
 
-" IntelliJ controls
-nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
-
-" Terminal
-nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
-nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
-
-" Window Navigation
-nnoremap <c-\> :action SplitVertically<CR>
-nnoremap <c--> :action SplitHorizontally<CR>
-nnoremap <c-=> :action Unsplit<CR>
-
+sethandler <c-h> a:vim
+sethandler <c-l> a:vim
 sethandler <c-j> a:vim
 sethandler <c-k> a:vim
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
 
-nnoremap <Leader>en :action EditSourceInNewWindow<CR>
-nnoremap <Leader>n :action NextWindow<CR>
+"nnoremap <c-j> :m +1<CR>
+"nnoremap <c-k> :m -2<CR>
+"inoremap <c-j> <Esc>:m +1<CR>gi
+"inoremap <c-k> <Esc>:m -2<CR>gi
+
+"nmap K :action ShowErrorDescription<CR> " should actually show code info
+nmap K :action QuickJavaDoc<CR>
+
+" Code actions
+" gc + gcc are handled by tpope/vim-commentary
+nmap gb :action CommentByBlockComment<CR>
+vmap gb :action CommentByBlockComment<CR>
+"what is the difference between gD and gd??
+nmap gD :action GotoDeclaration<CR>
+nmap gd :action GotoDeclaration<CR>
+nmap gI :action GotoImplementation<CR>
+nmap gr :action ShowUsages<CR>
+
+" Leader - Top-Level
+nmap <leader>/ :action CommentByLineComment<CR>
+vmap <leader>/ :action CommentByLineComment<CR>
+nmap <leader>e :NERDTreeToggle<CR>
+nmap <leader>f :action GotoFile<CR>
+nmap <leader>h :noh<CR>
+nmap <leader>q :q<CR>
+nmap <leader>w :w<CR>
+
+" Leader - Git
+nmap <leader>gb :action Git.Branches<CR>
+nmap <leader>gd :action Compare.SameVersion<CR>
+nmap <leader>gg :action Git.Menu<CR>
+nmap <leader>gj :action VcsShowNextChangeMarker<CR>
+nmap <leader>gk :action VcsShowPrevChangeMarker<CR>
+" does not work
+"nnap <leader>gl :action Annotate<CR>
+nmap <leader>gp :action Vcs.ShowDiffChangedLines<CR>
+nmap <leader>gR :action ChangesView.Revert<CR>
+nmap <leader>gr :action Vcs.RollbackChangedLines<CR>
+
+" Leader - LSP
+nmap <leader>la :action ShowIntentionActions<CR>
+nmap <leader>lf :action ReformatCode<CR>
+nmap <leader>lj :action GotoNextError<CR>
+nmap <leader>lk :action GotoPreviousError<CR>
+nmap <leader>lr :action RenameElement<CR>
+nmap <leader>lS :action GotoSymbol<CR>
+nmap <leader>ls :action FileStructurePopup<CR>
+
+" Leader - IdeaVim Actions (same as LunarVim Actions)
+nmap <leader>Lc :e ~/.ideavimrc<CR>
+nmap <leader>Lr :action IdeaVim.ReloadVimRc.reload<CR>
+nmap <leader>Lf :action VimFindActionIdAction<CR>
+
+" Leader - Search
+nmap <leader>sb :action Git.Branches<CR>
+nmap <leader>sf :action GotoFile<CR>
+nmap <leader>sr :action RecentFiles<CR>
+nmap <leader>st :action FindInPath<CR>
+
+" Leader - Tests
+nmap <leader>tc :action RunClass<CR>
+nmap <leader>tl :action Run<CR>
+nmap <leader>tn :action ContextRun<CR>
+
+" IntelliJ controls
+"nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
+
+" Terminal
+"nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
+"nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
+
+" Window Navigation
+"nnoremap <c-\> :action SplitVertically<CR>
+"nnoremap <c--> :action SplitHorizontally<CR>
+"nnoremap <c-=> :action Unsplit<CR>
+
+"nnoremap <Leader>en :action EditSourceInNewWindow<CR>
+"nnoremap <Leader>n :action NextWindow<CR>
 
 " Edit Source Code
-vnoremap < <gv
-vnoremap > >gv
+"vnoremap < <gv
+"vnoremap > >gv
 
-nnoremap [[ :action MethodUp<CR>
-nnoremap ]] :action MethodDown<CR>
+"nnoremap [[ :action MethodUp<CR>
+"nnoremap ]] :action MethodDown<CR>
 
-nnoremap zc :action CollapseRegion<CR>
-nnoremap zo :action ExpandRegion<CR>
-nnoremap <leader>zc :action CollapseAllRegions<CR>
-nnoremap <leader>zo :action ExpandAllRegions<CR>
+"nnoremap zc :action CollapseRegion<CR>
+"nnoremap zo :action ExpandRegion<CR>
+"nnoremap <leader>zc :action CollapseAllRegions<CR>
+"nnoremap <leader>zo :action ExpandAllRegions<CR>
 
-nnoremap <leader>c :action CommentByLineComment<CR>
-nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
-nnoremap <Leader>=  :action ReformatCode<CR>
-nnoremap <leader>o :action OptimizeImports<CR>
+"nnoremap <leader>c :action CommentByLineComment<CR>
+"nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
+"nnoremap <Leader>=  :action ReformatCode<CR>
+"nnoremap <leader>o :action OptimizeImports<CR>
 
-sethandler <c-r> a:vim
-nnoremap <c-r> :action RecentFiles<CR>
-nnoremap <leader>l :action RecentLocations<CR>
-nnoremap <leader>h  :action LocalHistory.ShowHistory<CR>
+"sethandler <c-r> a:vim
+"nnoremap <c-r> :action RecentFiles<CR>
+"nnoremap <leader>l :action RecentLocations<CR>
+"nnoremap <leader>h  :action LocalHistory.ShowHistory<CR>
 
-nnoremap ge :action GotoNextError<CR>
-nnoremap gE :action GotoPreviousError<CR>
+"nnoremap ge :action GotoNextError<CR>
+"nnoremap gE :action GotoPreviousError<CR>
 
-nnoremap <leader>i :action Generate<CR>
-nnoremap <leader>g :action Git.Menu<CR>
+"nnoremap <leader>i :action Generate<CR>
+"nnoremap <leader>g :action Git.Menu<CR>
 
 " Search & Source Code Navigation
-nnoremap <c-/> :action FindInPath<CR>
-nnoremap <c-a> :action GotoAction<CR>
-nnoremap <c-f> :action GotoFile<CR>
-nnoremap <leader>u :action FindUsages<CR>
+"nnoremap <c-/> :action FindInPath<CR>
+"nnoremap <c-a> :action GotoAction<CR>
+"nnoremap <c-f> :action GotoFile<CR>
+"nnoremap <leader>u :action FindUsages<CR>
 
-nnoremap <leader>s :action GotoRelated<CR>
-nnoremap <leader>h :action CallHierarchy<CR>
-nnoremap <leader>b :action ShowNavBar<CR>
-nnoremap <leader>/ :action ShowErrorDescription<CR>
-nnoremap <c-s> :action FileStructurePopup<CR>
-nnoremap <c-o> :action GotoSymbol<CR>
-nnoremap gc :action GotoClass<CR>
-nnoremap gi :action GotoImplementation<CR>
-nnoremap gd :action GotoDeclaration<CR>
-nnoremap gp :action GotoSuperMethod<CR>
-nnoremap gt :action GotoTest<CR>
-nnoremap gb :action Back<CR>
-nnoremap gf :action Forward<CR>
-
+"nnoremap <leader>s :action GotoRelated<CR>
+"nnoremap <leader>h :action CallHierarchy<CR>
+"nnoremap <leader>b :action ShowNavBar<CR>
+"nnoremap <leader>/ :action ShowErrorDescription<CR>
+"nnoremap <c-s> :action FileStructurePopup<CR>
+"nnoremap <c-o> :action GotoSymbol<CR>
+"nnoremap gc :action GotoClass<CR>
+"nnoremap gi :action GotoImplementation<CR>
+"nnoremap gd :action GotoDeclaration<CR>
+"nnoremap gp :action GotoSuperMethod<CR>
+"nnoremap gt :action GotoTest<CR>
+"nnoremap gb :action Back<CR>
+"nnoremap gf :action Forward<CR>
+""
 " Tool Windows
-nnoremap <c-p> :action JumpToLastWindow<CR>
-nnoremap <c-x> :action HideAllWindows<CR>
-
+"nnoremap <c-p> :action JumpToLastWindow<CR>
+"nnoremap <c-x> :action HideAllWindows<CR>
+""
 " Running & Debugging
-nnoremap ,r :action ContextRun<CR>
-nnoremap ,c :action RunClass<CR>
-nnoremap ,f :action ChooseRunConfiguration<CR>
-nnoremap ,t :action ActivateRunToolWindow<CR>
-nnoremap ,u :action Rerun<CR>
-nnoremap ,f :action RerunFailedTests<CR>
-nnoremap ,b :action ToggleLineBreakpoint<CR>
-nnoremap ,d :action ContextDebug<CR>
-nnoremap ,n :action ActivateDebugToolWindow<CR>
+"nnoremap ,r :action ContextRun<CR>
+"nnoremap ,c :action RunClass<CR>
+"nnoremap ,f :action ChooseRunConfiguration<CR>
+"nnoremap ,t :action ActivateRunToolWindow<CR>
+"nnoremap ,u :action Rerun<CR>
+"nnoremap ,f :action RerunFailedTests<CR>
+"nnoremap ,b :action ToggleLineBreakpoint<CR>
+"nnoremap ,d :action ContextDebug<CR>
+"nnoremap ,n :action ActivateDebugToolWindow<CR>
 
 " actions
-nmap <leader>bd <action>(CloseEditor)
+"nmap <leader>bd <action>(CloseEditor)
 
 " TODO: other useful commands
 "ShowIntentionActions (Alt+Enter)
