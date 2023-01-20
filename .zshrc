@@ -7,6 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.local/bin/:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -94,6 +95,7 @@ plugins=(
 #	sublime 
 #	sudo 
 #	yarn
+	web-search
 	zsh-autosuggestions
 	zsh-syntax-highlighting
 )
@@ -125,7 +127,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias dotfiles="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias dof="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 if [ -x "$(command -v exa)" ]; then
 	alias ls="exa --icons"
 	alias l="ls -la"
