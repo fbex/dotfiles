@@ -1,14 +1,28 @@
 " IdeaVim Config
 "
-" Set <c-j> and <c-k> for Up/Down in IntelliJ preferences
+" Set <control-h/j/k/l> for Left/Down/Up/Right in IntelliJ preferences
 " to enable vim-like navigation in native IntelliJ windows.
 "
-" Blog post: https://towardsdatascience.com/the-essential-ideavim-remaps-291d4cd3971b
-" More examples: https://jb.gg/share-ideavimrc
+" Good IntelliJ keyboard shortcuts without a IdeaVim binding:
+"   - Alt+Enter: ShowIntentionActions
+"   - Cmd+B: GotoDeclaration
+"   - Cmd+Shift+Enter: EditorCompleteStatement
+"   - Esc: LeaveActiveWindow
+"   - Shift+Esc: HideActiveWindow
 "
-" TODO: How to make C-J/K motions work for IntelliJ Menus?
+" Good Vim shortcuts:
+"   - zo / zc: Open/Collapse region
+"   - zO / zC: Open/Collapse region recursively
+"   - zR / zM: Open/Collapse all regions
+"
+" More information:
+"   - Blog post: https://towardsdatascience.com/the-essential-ideavim-remaps-291d4cd3971b
+"   - More examples: https://jb.gg/share-ideavimrc
 
-" -------- Settings ----------
+
+" ==============================
+" ========== SETTINGS ==========
+" ==============================
 
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
@@ -21,26 +35,30 @@ set clipboard+=ideaput
 set foldmethod=syntax "better method folding
 set ideajoin "smart join with Shift+J
 set idearefactormode=keep "stay in normal mode when refactoring
-set number relativenumber
+set number relativenumber "relative line numbers
 set showmode "show vim search in status bar
+set showcmd
+set ideastatusicon=gray
 
 " search
 set hlsearch "hightlight search results
 set ignorecase
 set incsearch "Do incremental searching (show partial results)
 
-" Don't use Ex mode, use Q for formatting.
-map Q gq
 
+" =============================
+" ========== PLUGINS ==========
+" =============================
 
-" --------- Plugins ---------
+Plug 'vim-easymotion'
+"TODO: learn usage
 
 Plug 'preservim/nerdtree'
 "TODO: learn properly + remaps here
-let g:NERDTreeMapActivateNode='l'
-let g:NERDTreeMapJumpParent='h'
-sethandler <c-n> a:vim
-map <c-n> :NERDTreeToggle<CR>
+"let g:NERDTreeMapActivateNode='l'
+"let g:NERDTreeMapJumpParent='h'
+"sethandler <c-n> a:vim
+"map <c-n> :NERDTreeToggle<CR>
 
 Plug 'terryma/vim-multiple-cursors'
 "TODO: map keys! and learn + remaps here
@@ -58,53 +76,134 @@ Plug 'dbakker/vim-paragraph-motion'
 " The { and } motions also match blank lines, not just empty ones
 
 
-" --------- Top-Level Keybindings -----------
+" =================================================
+" ========== VIM Convenience Keybindings ==========
+" =================================================
 
-" map spacebar to leader
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" Allow multiple indents in a row
+vmap < <gv
+vmap > >gv
+
+" Keep editor line centered when scrolling or searching
+nnoremap <c-d> <c-d>zz
+nnoremap <c-u> <c-u>zz
+nmap n nzzzv
+nmap N Nzzzv
+
+
+" ========================================
+" ========== Editor Keybindings ==========
+" ========================================
+
+" --- space as leader ---
 let mapleader = " "
 
-nmap \ :action ActivateTerminalToolWindow<CR>
 
-sethandler <c-h> a:vim
-sethandler <c-l> a:vim
-sethandler <c-j> a:vim
-sethandler <c-k> a:vim
+" ========== Top-Level - Control-Key ==========
+
+" --- LunarVim ---
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 nnoremap <c-k> <c-w>k
 nnoremap <c-j> <c-w>j
+nnoremap <c-s> :w<CR>
 
-"nnoremap <c-j> :m +1<CR>
-"nnoremap <c-k> :m -2<CR>
-"inoremap <c-j> <Esc>:m +1<CR>gi
-"inoremap <c-k> <Esc>:m -2<CR>gi
+" --- Addons ---
+nmap <c-cr> :action EditorCompleteStatement<CR>
+imap <c-cr> :action EditorCompleteStatement<CR>
+nmap <c-s-cr> :action Generate<CR>
+imap <c-s-cr> :action Generate<CR>
 
-"nmap K :action ShowErrorDescription<CR> " should actually show code info
+
+" ========== Top-Level - Move-Lines ==========
+
+" --- LunarVim ---
+nmap <a-j> :action MoveLineDown<CR>
+nmap <a-k> :action MoveLineUp<CR>
+vmap <a-j> :action MoveLineDown<CR>
+vmap <a-k> :action MoveLineUp<CR>
+
+" --- Addons ---
+nmap <a-s-j> :action MoveStatementDown<CR>
+nmap <a-s-k> :action MoveStatementUp<CR>
+vmap <a-s-j> :action MoveStatementDown<CR>
+vmap <a-s-k> :action MoveStatementUp<CR>
+vmap J :action MoveLineDown<CR>
+vmap K :action MoveLineUp<CR>
+
+
+" ========== Top-Level - Misc ==========
+
+" --- LunarVim ---
+nmap \ :action ActivateTerminalToolWindow<CR>
 nmap K :action QuickJavaDoc<CR>
 
-" Code actions
+" --- Addons ---
+nmap [[ :action MethodUp<CR>
+nmap ]] :action MethodDown<CR>
+
+
+" ========== Top-Level - [G]oto Code Actions ==========
+
+" --- LunarVim ---
 " gc + gcc are handled by tpope/vim-commentary
 nmap gb :action CommentByBlockComment<CR>
 vmap gb :action CommentByBlockComment<CR>
-"what is the difference between gD and gd??
+" TODO: what is the difference between gD and gd??
 nmap gD :action GotoDeclaration<CR>
 nmap gd :action GotoDeclaration<CR>
 nmap gI :action GotoImplementation<CR>
 nmap gr :action ShowUsages<CR>
+nmap gl :action ShowErrorDescription<CR>
 
-" Leader - Top-Level
+" --- Addons ---
+nmap gt :action GotoTest<CR>
+nmap gs :action GotoSuperMethod<CR>
+nmap gi :action GotoImplementation<CR>
+
+
+" ========== Leader - Top-Level ==========
+
+" --- LunarVim ---
 nmap <leader>/ :action CommentByLineComment<CR>
-vmap <leader>/ :action CommentByLineComment<CR>
+nmap <leader>c :action CloseEditor<CR>
 nmap <leader>e :NERDTreeToggle<CR>
 nmap <leader>f :action GotoFile<CR>
 nmap <leader>h :noh<CR>
 nmap <leader>q :q<CR>
 nmap <leader>w :w<CR>
 
-" Leader - Git
+" --- Addons ---
+nmap <leader>= :action ReformatCode<CR>
+nmap <leader>ot :action Terminal.OpenInTerminal<CR>
+
+
+" ========== Leader - [B]uffer ==========
+
+" --- LunarVim ---
+nmap <leader>bb :action Back<CR>
+nmap <leader>bn :action Forward<CR>
+nmap <leader>bf :action RecentFiles<CR>
+
+
+" ========== Leader - [D]ebug ==========
+
+" --- LunarVim ---
+nmap <leader>dt :action ToggleLineBreakpoint<CR>
+nmap <leader>ds :action ContextDebug<CR>
+nmap <leader>dU :action ActivateDebugToolWindow<CR>
+
+
+" ========== Leader - [G]it ==========
+
+" --- LunarVim ---
 nmap <leader>gb :action Git.Branches<CR>
 nmap <leader>gd :action Compare.SameVersion<CR>
 nmap <leader>gg :action Git.Menu<CR>
+" similar to Git.Menu: Vcs.QuickListPopupAction
 nmap <leader>gj :action VcsShowNextChangeMarker<CR>
 nmap <leader>gk :action VcsShowPrevChangeMarker<CR>
 " does not work
@@ -113,7 +212,22 @@ nmap <leader>gp :action Vcs.ShowDiffChangedLines<CR>
 nmap <leader>gR :action ChangesView.Revert<CR>
 nmap <leader>gr :action Vcs.RollbackChangedLines<CR>
 
-" Leader - LSP
+
+" ========== Leader - [I]ntelliJ Windows ==========
+
+" --- Addons ---
+nmap <leader>Iv :action ViewToolButtons<CR> :action ViewNavigationBar<CR>
+nmap <leader>It :action ToolWindowsGroup<CR>
+nmap <leader>Ih :action HideAllWindows<CR>
+nmap <leader>Ir :action JumpToLastWindow<CR>
+nmap <leader>Ib :action PreviousWindow<CR>
+nmap <leader>In :action NextWindow<CR>
+nmap <leader>Iw :action EditSourceInNewWindow<CR>
+
+
+" ========== Leader - [L]SP ==========
+
+" --- LunarVim ---
 nmap <leader>la :action ShowIntentionActions<CR>
 nmap <leader>lf :action ReformatCode<CR>
 nmap <leader>lj :action GotoNextError<CR>
@@ -121,107 +235,118 @@ nmap <leader>lk :action GotoPreviousError<CR>
 nmap <leader>lr :action RenameElement<CR>
 nmap <leader>lS :action GotoSymbol<CR>
 nmap <leader>ls :action FileStructurePopup<CR>
+nmap <leader>le :action ActivateProblemsViewToolWindow<CR>
+nmap <leader>ld :action ActivateProblemsViewToolWindow<CR>
+nmap <leader>lq :action ActivateProblemsViewToolWindow<CR>
+nmap <leader>lw :action ActivateProblemsViewToolWindow<CR>
 
-" Leader - IdeaVim Actions (same as LunarVim Actions)
+" --- Addons ---
+nmap <leader>lo :action OptimizeImports<CR>
+nmap <leader>lR :action Refactorings.QuickListPopupAction<CR>
+nmap <leader>lg :action Generate<CR>
+
+
+" ========== Leader - [L]unarVim Actions (IdeaVim Actions) ==========
+
+" --- LunarVim ---
 nmap <leader>Lc :e ~/.ideavimrc<CR>
 nmap <leader>Lr :action IdeaVim.ReloadVimRc.reload<CR>
 nmap <leader>Lf :action VimFindActionIdAction<CR>
 
-" Leader - Search
+
+" ========== Leader - [S]earch ==========
+
+" --- LunarVim ---
 nmap <leader>sb :action Git.Branches<CR>
 nmap <leader>sf :action GotoFile<CR>
 nmap <leader>sr :action RecentFiles<CR>
 nmap <leader>st :action FindInPath<CR>
 
-" Leader - Tests
-nmap <leader>tc :action RunClass<CR>
-nmap <leader>tl :action Run<CR>
-nmap <leader>tn :action ContextRun<CR>
+" --- Addons ---
+nmap <leader>sc :action GotoClass<CR>
+nmap <leader>ss :action GotoSymbol<CR>
+nmap <leader>sa :action GotoAction<CR>
+nmap <leader>sC :action JumpToLastChange<CR>
+nmap <leader>sl :action RecentLocations<CR>
+nmap <leader>sh :action LocalHistory.ShowHistory<CR>
 
-" IntelliJ controls
-"nnoremap <c-z> :action ToggleDistractionFreeMode<CR>
 
-" Terminal
-"nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
-"nnoremap <leader>t :action Terminal.OpenInTerminal<CR>
+" ========== Leader - [T]est ==========
 
-" Window Navigation
-"nnoremap <c-\> :action SplitVertically<CR>
-"nnoremap <c--> :action SplitHorizontally<CR>
-"nnoremap <c-=> :action Unsplit<CR>
+" --- Addons ---
+" Reflects vim-test mappings
+nmap <leader>tt :action ContextRun<CR>
+nmap <leader>ta :action RunClass<CR>
+nmap <leader>tr :action Rerun<CR>
+" Other test mappings
+nmap <leader>tf :action RerunFailedTests<CR>
+nmap <leader>tR :action Run<CR>
+nmap <leader>tc :action ChooseRunConfiguration<CR>
+nmap <leader>tg :action GotoTest<CR>
+nmap <leader>tw :action ActivateRunToolWindow<CR>
 
-"nnoremap <Leader>en :action EditSourceInNewWindow<CR>
-"nnoremap <Leader>n :action NextWindow<CR>
 
-" Edit Source Code
-"vnoremap < <gv
-"vnoremap > >gv
+" ========== Leader - [W]indow Navigation ==========
 
-"nnoremap [[ :action MethodUp<CR>
-"nnoremap ]] :action MethodDown<CR>
+" --- Addons ---
+nmap <leader>wm :action MaximizeEditorInSplit<CR>
+nmap <leader>wv :action SplitVertically<CR>
+nmap <leader>ws :action SplitHorizontally<CR>
+nmap <leader>wc :action CloseContent<CR>
+nmap <leader>wo :action Unsplit<CR>
+"CTRL+w s       -   Split current window horizontally
+"CTRL+w v       -   Split current window vertically
+"CTRL+w c       -   Close current window
+"CTRL+w m       -   Move to window according to motion m
+"CTRL+w o       -   Maxmize current window (note: this overwrites your current window configuration)
 
-"nnoremap zc :action CollapseRegion<CR>
-"nnoremap zo :action ExpandRegion<CR>
-"nnoremap <leader>zc :action CollapseAllRegions<CR>
-"nnoremap <leader>zo :action ExpandAllRegions<CR>
 
-"nnoremap <leader>c :action CommentByLineComment<CR>
-"nnoremap <leader>r :action Refactorings.QuickListPopupAction<CR>
-"nnoremap <Leader>=  :action ReformatCode<CR>
-"nnoremap <leader>o :action OptimizeImports<CR>
+" ----------  Potential keybindings ----------
 
-"sethandler <c-r> a:vim
-"nnoremap <c-r> :action RecentFiles<CR>
-"nnoremap <leader>l :action RecentLocations<CR>
-"nnoremap <leader>h  :action LocalHistory.ShowHistory<CR>
-
-"nnoremap ge :action GotoNextError<CR>
-"nnoremap gE :action GotoPreviousError<CR>
-
-"nnoremap <leader>i :action Generate<CR>
-"nnoremap <leader>g :action Git.Menu<CR>
-
-" Search & Source Code Navigation
-"nnoremap <c-/> :action FindInPath<CR>
-"nnoremap <c-a> :action GotoAction<CR>
-"nnoremap <c-f> :action GotoFile<CR>
-"nnoremap <leader>u :action FindUsages<CR>
-
-"nnoremap <leader>s :action GotoRelated<CR>
-"nnoremap <leader>h :action CallHierarchy<CR>
-"nnoremap <leader>b :action ShowNavBar<CR>
-"nnoremap <leader>/ :action ShowErrorDescription<CR>
-"nnoremap <c-s> :action FileStructurePopup<CR>
-"nnoremap <c-o> :action GotoSymbol<CR>
-"nnoremap gc :action GotoClass<CR>
-"nnoremap gi :action GotoImplementation<CR>
-"nnoremap gd :action GotoDeclaration<CR>
-"nnoremap gp :action GotoSuperMethod<CR>
-"nnoremap gt :action GotoTest<CR>
-"nnoremap gb :action Back<CR>
-"nnoremap gf :action Forward<CR>
-""
-" Tool Windows
-"nnoremap <c-p> :action JumpToLastWindow<CR>
-"nnoremap <c-x> :action HideAllWindows<CR>
-""
-" Running & Debugging
-"nnoremap ,r :action ContextRun<CR>
-"nnoremap ,c :action RunClass<CR>
-"nnoremap ,f :action ChooseRunConfiguration<CR>
-"nnoremap ,t :action ActivateRunToolWindow<CR>
-"nnoremap ,u :action Rerun<CR>
-"nnoremap ,f :action RerunFailedTests<CR>
-"nnoremap ,b :action ToggleLineBreakpoint<CR>
-"nnoremap ,d :action ContextDebug<CR>
-"nnoremap ,n :action ActivateDebugToolWindow<CR>
-
-" actions
-"nmap <leader>bd <action>(CloseEditor)
-
-" TODO: other useful commands
-"ShowIntentionActions (Alt+Enter)
-"GotoDeclaration (Cmd+B)
-"Esc: LeaveActiveWindow
-"Shift+Esc: HideActiveWindow
-"Command+Shift+Enter: Autocomplete
+" --- Unmapped LunarVim keybindings ---
+"
+" <c-Arrow> = Resize Split
+" <c-q> = Quickfix Toggle
+" <a-1> = Horizontal Terminal
+" <a-2> = Vertical Terminal
+" <a-3> = Floating Terminal
+" <a-n> = Move to next reference
+" <a-p> = Move to previous reference
+"
+" % = Nvim Builtin
+" & = Nvim Builtin
+" Y = Nvim Builtin
+"
+" [q = ?
+" ]q = ?
+"
+" g% = ?
+" gs = Show signature help
+" gx = ??
+"
+" z= = +spelling
+"
+" <leader>; = Dashboard
+"
+" All Leader - [B]uffer
+" All Leader - [D]ebug
+"
+" <leader>gC = Checkout Commit (for current file)
+" <leader>gc = Checkout Commit
+" <leader>gg = Lazygit
+" <leader>go = Open changed file
+" <leader>gs = Stage hunk
+" <leader>gu = Undo Stage hunk
+"
+" <leader>lI = Mason Info
+" <leader>li = Info
+" <leader>ll = CodeLens Action
+"
+" <leader>sc = Colorscheme
+" <leader>sC = Commands
+" <leader>sh = Find Help
+" <leader>sH = Find highlight groups
+" <leader>sk = Keymaps
+" <leader>sM = Manpages
+" <leader>sp = Colorscheme with Preview
+" <leader>sR = Registers
