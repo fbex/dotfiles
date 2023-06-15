@@ -1,10 +1,9 @@
 tap 'homebrew/cask'
 cask_args appdir: '~/Applications'
 
-cask 'discord'
-cask 'signal'
-cask 'tor-browser'
+cask 'openlens'
+cask 'sublime-text'
 
 ### removed
-#cask 'adguard'
+#nothing yet
 
