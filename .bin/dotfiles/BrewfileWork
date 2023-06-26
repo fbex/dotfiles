@@ -1,7 +1,19 @@
 tap 'homebrew/cask'
 cask_args appdir: '~/Applications'
 
+# kubernetes
+brew 'awscli'
+brew 'kubectl'
+brew 'int128/kubelogin/kubelogin'
+
+# docker
+brew 'docker'
+brew 'docker-compose'
+brew 'colima'
+
+# casks
 cask 'openlens'
+cask 'soapui'
 cask 'sublime-text'
 
 ### removed
