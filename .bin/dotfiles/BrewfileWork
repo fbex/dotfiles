@@ -11,8 +11,16 @@ brew 'docker'
 brew 'docker-compose'
 brew 'colima'
 
+# other
+brew 'corkscrew'
+brew 'mongocli'
+brew 'mongosh'
+
 # casks
+cask 'dbvisualizer'
+cask 'mongodb-compass'
 cask 'openlens'
+cask 'pgadmin4'
 cask 'soapui'
 cask 'sublime-text'
 
