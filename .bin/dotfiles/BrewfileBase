@@ -16,7 +16,6 @@ brew 'pyenv'
 brew 'ranger'
 brew 'yarn'
 
-cask 'adobe-acrobat-reader'
 cask 'drawio'
 cask 'firefox'
 cask 'google-chrome'
@@ -29,6 +28,7 @@ cask 'spaceid'
 cask 'vlc'
 
 ### removed
+#cask 'adobe-acrobat-reader'
 #cask 'amethyst'
 #cask 'karabiner-elements'
 #cask 'kitty'
