@@ -8,6 +8,8 @@ if [ -f "${HOME}/.zprofile_work" ]; then
 	source "${HOME}/.zprofile_work"
 fi
 
+export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
+
 export BAT_THEME="gruvbox-dark"
 
 # pyenv
