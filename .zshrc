@@ -135,6 +135,10 @@ if [ -x "$(command -v exa)" ]; then
 	alias la="ls -laagH"
 	alias lg="ls -la --git"
 	alias llg="ls -l --git"
+	alias lt="l --tree"
+	alias llt="ll --tree"
+	alias ltl="lt --level"
+	alias lltl="llt --level"
 fi
 if [ -x "$(command -v bat)" ]; then
 	alias cat="bat"
