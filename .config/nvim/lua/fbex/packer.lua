@@ -53,7 +53,11 @@ require('packer').startup(function(use)
     use 'lewis6991/gitsigns.nvim'
 
     use 'ellisonleao/gruvbox.nvim' -- colorscheme
-    use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
+    use { -- Add indentation guides even on blank lines
+        'lukas-reineke/indent-blankline.nvim',
+        main = "ibl",
+        opts = {}
+    }
     use 'mbbill/undotree' -- visual local history
     use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
