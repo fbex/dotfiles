@@ -17,6 +17,7 @@ brew 'mongosh'
 
 # casks
 cask 'dbvisualizer'
+cask 'excalidrawz'
 cask 'mongodb-compass'
 cask 'openlens'
 cask 'pgadmin4'
