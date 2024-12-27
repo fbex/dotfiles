@@ -16,6 +16,8 @@ brew 'mongocli'
 brew 'mongosh'
 
 # casks
+cask 'bruno'
+cask 'drawio'
 cask 'dbvisualizer'
 cask 'excalidrawz'
 cask 'mongodb-compass'
