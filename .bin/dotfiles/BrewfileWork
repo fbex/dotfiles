@@ -3,7 +3,6 @@ cask_args appdir: '~/Applications'
 # kubernetes
 brew 'awscli'
 brew 'kubectl'
-brew 'int128/kubelogin/kubelogin'
 
 # docker
 brew 'docker'
@@ -17,6 +16,7 @@ brew 'mongosh'
 
 # casks
 cask 'bruno'
+cask 'burp-suite'
 cask 'drawio'
 cask 'dbvisualizer'
 cask 'excalidrawz'
@@ -27,5 +27,5 @@ cask 'soapui'
 cask 'sublime-text'
 
 ### removed
-#nothing yet
+brew 'int128/kubelogin/kubelogin'
 
