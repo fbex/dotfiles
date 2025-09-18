@@ -11,6 +11,7 @@ brew 'colima'
 
 # other
 brew 'corkscrew'
+brew 'gh'
 brew 'mongocli'
 brew 'mongosh'
 
@@ -27,5 +28,5 @@ cask 'soapui'
 cask 'sublime-text'
 
 ### removed
-brew 'int128/kubelogin/kubelogin'
+#brew 'int128/kubelogin/kubelogin'
 
