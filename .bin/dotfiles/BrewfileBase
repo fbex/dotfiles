@@ -15,6 +15,7 @@ brew 'pyenv'
 brew 'ranger'
 brew 'yarn'
 
+cask 'airbuddy'
 cask 'intellij-idea'
 cask 'istat-menus'
 cask 'iterm2'
