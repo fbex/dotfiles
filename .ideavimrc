@@ -116,6 +116,7 @@ nmap <c-cr> :action EditorCompleteStatement<CR>
 imap <c-cr> <action>(EditorCompleteStatement)
 nmap <c-s-cr> :action Generate<CR>
 imap <c-s-cr> :action Generate<CR>
+" nnoremap <c-s-h> :action MoveEditorToOppositeTabGroup-RecentFiles<CR> --- switch splits
 
 
 " ========== Top-Level - Move-Lines ==========
@@ -216,7 +217,7 @@ nmap <leader>gr :action Vcs.RollbackChangedLines<CR>
 " ========== Leader - [I]ntelliJ Windows ==========
 
 " -- Addons ---
-nmap <leader>Iv :action ViewToolButtons<CR> :action ViewNavigationBar<CR>
+" nmap <leader>Iv :action ViewToolButtons<CR> :action ViewNavigationBar<CR>
 nmap <leader>It :action ToolWindowsGroup<CR>
 nmap <leader>Ih :action HideAllWindows<CR>
 nmap <leader>Ir :action JumpToLastWindow<CR>
