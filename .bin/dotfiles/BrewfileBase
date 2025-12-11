@@ -21,7 +21,6 @@ cask 'istat-menus'
 cask 'iterm2'
 cask 'keepassxc'
 cask 'mos'
-cask 'spaceid'
 cask 'vlc'
 
 ### removed
@@ -33,6 +32,7 @@ cask 'vlc'
 #cask 'karabiner-elements'
 #cask 'kitty'
 #cask 'postman'
+#cask 'spaceid'
 #cask 'spotify'
 #cask 'sublime-text'
 
