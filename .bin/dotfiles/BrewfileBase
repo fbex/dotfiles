@@ -16,6 +16,7 @@ brew 'ranger'
 brew 'yarn'
 
 cask 'airbuddy'
+cask 'ghostty'
 cask 'istat-menus'
 cask 'iterm2'
 cask 'keepassxc'
