@@ -31,6 +31,3 @@ cask 'pgadmin4'
 cask 'soapui'
 cask 'sublime-text'
 
-### removed
-#brew 'int128/kubelogin/kubelogin'
-

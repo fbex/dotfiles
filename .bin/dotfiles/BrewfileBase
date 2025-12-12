@@ -1,6 +1,6 @@
 cask_args appdir: '~/Applications'
 
-brew 'git'
+# cli
 brew 'bat'
 brew 'bpytop'
 brew 'hacker1024/hacker1024/coretemp'
@@ -18,25 +18,11 @@ brew 'yarn'
 brew 'zsh-autosuggestions'
 brew 'zsh-syntax-highlighting'
 
+# casks
 cask 'airbuddy'
 cask 'ghostty'
 cask 'istat-menus'
-cask 'iterm2'
 cask 'keepassxc'
 cask 'mos'
 cask 'vlc'
-
-### removed
-#cask 'adobe-acrobat-reader'
-#cask 'amethyst'
-#cask 'drawio'
-#cask 'firefox'
-#cask 'google-chrome'
-#cask 'intellij-idea'
-#cask 'karabiner-elements'
-#cask 'kitty'
-#cask 'postman'
-#cask 'spaceid'
-#cask 'spotify'
-#cask 'sublime-text'
 
