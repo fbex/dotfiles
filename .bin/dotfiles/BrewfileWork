@@ -2,6 +2,7 @@ cask_args appdir: '~/Applications'
 
 # kubernetes
 brew 'awscli'
+brew 'azure/kubelogin/az-kubelogin'
 brew 'kubectl'
 
 # docker
@@ -12,6 +13,8 @@ brew 'colima'
 # other
 brew 'corkscrew'
 brew 'gh'
+brew 'gpg'
+brew 'plantuml'
 brew 'mongocli'
 brew 'mongosh'
 
@@ -23,7 +26,7 @@ cask 'dbvisualizer'
 cask 'excalidrawz'
 cask 'keepassxc'
 cask 'mongodb-compass'
-cask 'openlens'
+cask 'freelens'
 cask 'pgadmin4'
 cask 'soapui'
 cask 'sublime-text'
