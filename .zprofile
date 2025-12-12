@@ -10,7 +10,7 @@ fi
 
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
-export BAT_THEME="gruvbox-dark"
+export BAT_THEME="Catppuccin Mocha"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
