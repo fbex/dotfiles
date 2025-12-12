@@ -10,6 +10,7 @@ fi
 
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 export BAT_THEME="Catppuccin Mocha"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 
