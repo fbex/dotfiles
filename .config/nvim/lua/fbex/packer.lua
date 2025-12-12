@@ -52,7 +52,7 @@ require('packer').startup(function(use)
     use 'tpope/vim-rhubarb'
     use 'lewis6991/gitsigns.nvim'
 
-    use 'ellisonleao/gruvbox.nvim' -- colorscheme
+    use { 'catppuccin/nvim', as = 'catppuccin' } -- colorscheme
     use { -- Add indentation guides even on blank lines
         'lukas-reineke/indent-blankline.nvim',
         main = "ibl",

@@ -31,7 +31,7 @@ vim.o.smartcase = true
 -- set colorscheme
 vim.opt.termguicolors = true
 vim.o.background = "dark"
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd([[colorscheme catppuccin]])
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
