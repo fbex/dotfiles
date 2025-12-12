@@ -11,6 +11,7 @@ fi
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
 export BAT_THEME="Catppuccin Mocha"
+export EZA_CONFIG_DIR="$HOME/.config/eza"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
