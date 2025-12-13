@@ -24,5 +24,11 @@ cask 'ghostty'
 cask 'istat-menus'
 cask 'keepassxc'
 cask 'mos'
+cask 'nikitabobko/tap/aerospace'
 cask 'vlc'
+
+# sketchybar
+tap 'FelixKratz/formulae'
+brew 'sketchybar'
+cask 'font-hack-nerd-font'
 
