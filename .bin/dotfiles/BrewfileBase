@@ -30,5 +30,6 @@ cask 'vlc'
 # sketchybar
 tap 'FelixKratz/formulae'
 brew 'sketchybar'
+brew 'borders'
 cask 'font-hack-nerd-font'
 
