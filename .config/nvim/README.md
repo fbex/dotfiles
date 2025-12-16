@@ -1,11 +1,4 @@
-# nvim config
+# 💤 LazyVim
 
-This setup uses `packer` for plugin management.
-
-Install plugins with `:PackerInstall`.
-Update plugins with `:PackerUpdate`.
-
-## Notes
-
-Occasiannly update treesitter by running `:TSUpdate`.
-
+A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
+Refer to the [documentation](https://lazyvim.github.io/installation) to get started.

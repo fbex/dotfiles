@@ -8,6 +8,7 @@ brew 'eza'
 brew 'fzf'
 brew 'git'
 brew 'htop'
+brew 'lazygit'
 brew 'neofetch'
 brew 'neovim'
 brew 'nvm'
@@ -17,6 +18,11 @@ brew 'starship'
 brew 'yarn'
 brew 'zsh-autosuggestions'
 brew 'zsh-syntax-highlighting'
+
+# LazyVim
+brew 'fd'
+brew 'ripgrep'
+brew 'tree-sitter-cli'
 
 # casks
 cask 'airbuddy'
