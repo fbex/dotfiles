@@ -1,5 +1,8 @@
 # aliases
 alias dof="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+if [ -x "$(command -v lazygit)" ]; then
+  alias d="lazygit -g $HOME/.dotfiles -w $HOME"
+fi
 if [ -x "$(command -v eza)" ]; then
 	alias ls="eza --icons"
 	alias l="ls -la"
