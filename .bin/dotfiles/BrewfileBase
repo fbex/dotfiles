@@ -5,8 +5,10 @@ brew 'bat'
 brew 'bpytop'
 brew 'hacker1024/hacker1024/coretemp'
 brew 'eza'
+brew 'fd'
 brew 'fzf'
 brew 'git'
+brew 'git-delta'
 brew 'htop'
 brew 'lazygit'
 brew 'neofetch'
@@ -20,7 +22,6 @@ brew 'zsh-autosuggestions'
 brew 'zsh-syntax-highlighting'
 
 # LazyVim
-brew 'fd'
 brew 'ripgrep'
 brew 'tree-sitter-cli'
 
