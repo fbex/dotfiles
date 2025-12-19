@@ -1,6 +1,11 @@
 theme = Catppuccin Mocha
 background-opacity = 0.95
 background-blur = true
+mouse-hide-while-typing = true
+macos-titlebar-style = tabs 
+auto-update = off
+auto-update-channel = tip 
+shell-integration-features = ssh-env,ssh-terminfo  
 
 keybind = super+alt+h=goto_split:left
 keybind = super+alt+j=goto_split:bottom
