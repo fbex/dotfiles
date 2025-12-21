@@ -15,7 +15,6 @@ brew 'neofetch'
 brew 'neovim'
 brew 'nvm'
 brew 'pyenv'
-brew 'ranger'
 brew 'starship'
 brew 'thefuck'
 brew 'tlrc'
@@ -27,6 +26,20 @@ brew 'zsh-syntax-highlighting'
 # LazyVim
 brew 'ripgrep'
 brew 'tree-sitter-cli'
+
+# yazi with optional dependencies
+brew "yazi"
+brew "ffmpeg"
+brew "sevenzip"
+brew "jq"
+brew "poppler"
+brew "fd"
+brew "ripgrep"
+brew "fzf"
+brew "zoxide"
+brew "resvg"
+brew "imagemagick"
+cask "font-symbols-only-nerd-font"
 
 # casks
 cask 'airbuddy'

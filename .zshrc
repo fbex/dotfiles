@@ -20,6 +20,7 @@ if [ -x "$(command -v bat)" ]; then
 fi
 if [ -x "$(command -v nvim)" ]; then
 	alias vim="nvim"
+  export EDITOR="nvim"
 fi
 
 # nvm settings (installed via homebrew)
