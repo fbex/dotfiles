@@ -79,6 +79,13 @@ _fzf_comprun() {
 # pyenv-virtualenv init
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
+# enable thefuck
+eval $(thefuck --alias)
+
+# enable zoxide
+eval "$(zoxide init zsh)"
+alias cd="z"
+
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
