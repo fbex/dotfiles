@@ -4,7 +4,7 @@ if [ -x "$(command -v lazygit)" ]; then
   alias d="lazygit -g $HOME/.dotfiles -w $HOME"
 fi
 if [ -x "$(command -v eza)" ]; then
-	alias ls="eza --icons"
+	alias ls="eza --icons=always --color=always --git"
 	alias l="ls -la"
 	alias ll="ls -l"
 	alias la="ls -laagH"
@@ -20,8 +20,17 @@ if [ -x "$(command -v bat)" ]; then
 fi
 if [ -x "$(command -v nvim)" ]; then
 	alias vim="nvim"
-  export EDITOR="nvim"
+  export EDITOR="nvim" # required for yazi
 fi
+
+# yazi wrapper to enable changing the CWD
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
 
 # nvm settings (installed via homebrew)
 export NVM_DIR="$HOME/.nvm"
