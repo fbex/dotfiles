@@ -48,6 +48,7 @@ cask 'istat-menus'
 cask 'keepassxc'
 cask 'mos'
 cask 'nikitabobko/tap/aerospace'
+cask 'raycast'
 cask 'vlc'
 
 # sketchybar
