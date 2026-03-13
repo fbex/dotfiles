@@ -1,7 +1,7 @@
-cask_args appdir: '~/Applications'
+#cask_args appdir: '~/Applications'
 
 # casks
-cask 'discord'
+#cask 'discord'
 cask 'electrum'
 cask 'monero-wallet'
 cask 'signal'

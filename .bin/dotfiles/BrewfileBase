@@ -1,4 +1,4 @@
-cask_args appdir: '~/Applications'
+#cask_args appdir: '~/Applications'
 
 # cli
 brew 'bat'
@@ -42,18 +42,20 @@ brew "imagemagick"
 cask "font-symbols-only-nerd-font"
 
 # casks
-cask 'airbuddy'
 cask 'ghostty'
 cask 'istat-menus'
 cask 'keepassxc'
-cask 'mos'
-cask 'nikitabobko/tap/aerospace'
-cask 'raycast'
 cask 'vlc'
 
 # sketchybar
-tap 'FelixKratz/formulae'
-brew 'sketchybar'
-brew 'borders'
-cask 'font-hack-nerd-font'
+#tap 'FelixKratz/formulae'
+#brew 'sketchybar'
+#brew 'borders'
+#cask 'font-hack-nerd-font'
+
+# removed
+#cask 'airbuddy'
+#cask 'mos'
+#cask 'nikitabobko/tap/aerospace'
+#cask 'raycast'
 
