@@ -4,10 +4,6 @@ elif [ -f "/usr/local/bin/brew" ]; then
 	eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-if [ -f "${HOME}/.zprofile_work" ]; then
-	source "${HOME}/.zprofile_work"
-fi
-
 export HOMEBREW_CASK_OPTS="--appdir=~/Applications"
 
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
@@ -21,4 +17,9 @@ eval "$(pyenv init --path)"
 
 # Added by Toolbox App
 export PATH="$PATH:/Users/florian/Library/Application Support/JetBrains/Toolbox/scripts"
+
+# comes last, so that work profile can overwrite the general profile
+if [ -f "${HOME}/.zprofile_work" ]; then
+	source "${HOME}/.zprofile_work"
+fi
 
