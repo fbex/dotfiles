@@ -1,0 +1,6 @@
+" import lazy-idea settings
+source ~/.lazy-idea/lazy-idea.vim
+
+" overwrites and custom settings
+" tbd...
+" <leader>cf - reformat code
