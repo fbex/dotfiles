@@ -1,0 +1,7 @@
+git:
+  pagers:
+    - pager: delta --dark --paging=never
+    - pager: delta --dark --side-by-side --paging=never
+      colorArg: always
+gui:
+  skipSwitchWorktreeOnCheckoutWarning: false
