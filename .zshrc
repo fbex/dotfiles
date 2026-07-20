@@ -1,3 +1,5 @@
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # aliases
 alias dof="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 if [ -x "$(command -v lazygit)" ]; then
