@@ -164,6 +164,7 @@ nmap gl :action ShowErrorDescription<CR>
 nmap gt :action GotoTest<CR>
 nmap gs :action GotoSuperMethod<CR>
 nmap gi :action GotoImplementation<CR>
+nmap gO :action FileStructurePopup<CR>
 
 
 " ========== Leader - Top-Level ==========
