@@ -34,10 +34,21 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# nvm settings (installed via homebrew)
+# nvm settings (installed via homebrew) - lazy loaded, see below
 export NVM_DIR="$HOME/.nvm"
-[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_LAZY_HOMEBREW_PREFIX="$(brew --prefix)"
+
+_nvm_lazy_load() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_LAZY_HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$NVM_LAZY_HOMEBREW_PREFIX/opt/nvm/nvm.sh" --no-use
+  [ -s "$NVM_LAZY_HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$NVM_LAZY_HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+  nvm use --silent default >/dev/null 2>&1
+}
+
+for _nvm_cmd in nvm node npm npx; do
+  eval "${_nvm_cmd}() { _nvm_lazy_load; ${_nvm_cmd} \"\$@\"; }"
+done
+unset _nvm_cmd
 
 # fzf settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
