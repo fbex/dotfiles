@@ -54,6 +54,17 @@ unset _nvm_cmd
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then compinit; else compinit -C; fi
 
+# highlight the current entry while tabbing through completions + arrow-key nav
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zmodload zsh/complist
+bindkey '^[[Z' reverse-menu-complete              # shift+tab: cycle backwards
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
 # fzf settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
