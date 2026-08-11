@@ -50,6 +50,10 @@ for _nvm_cmd in nvm node npm npx; do
 done
 unset _nvm_cmd
 
+# completions (sdkman used to do this as a side effect)
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then compinit; else compinit -C; fi
+
 # fzf settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -122,8 +126,25 @@ eval "$(zoxide init zsh)"
 alias cd="z"
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# sdkman: set env directly instead of sourcing sdkman-init.sh, which forks ~20
+# subprocesses (echo|tr, echo|grep per candidate) and costs ~85ms. The `sdk` CLI
+# is lazy-loaded below.
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_CANDIDATES_DIR="$SDKMAN_DIR/candidates"
+typeset -U path PATH
+for _sdk_d in $SDKMAN_CANDIDATES_DIR/*/current(N); do
+  _sdk_c=${${_sdk_d:h}:t}
+  export ${(U)_sdk_c}_HOME="$_sdk_d"
+  if [[ -d $_sdk_d/bin ]]; then path=("$_sdk_d/bin" $path); else path=("$_sdk_d" $path); fi
+done
+unset _sdk_d _sdk_c
+
+# `sdk` itself is rare and slow to set up - load the real thing on first use.
+sdk() { unset -f sdk; source "$SDKMAN_DIR/bin/sdkman-init.sh"; sdk "$@"; }
+
+# ...but keep its completion eagerly (0.5ms), so `sdk <TAB>` works before first use.
+autoload -U bashcompinit && bashcompinit
+source "$SDKMAN_DIR/contrib/completion/bash/sdk"
 
 # enable starship
 eval "$(starship init zsh)"
