@@ -10,10 +10,19 @@ export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 export BAT_THEME="Catppuccin Mocha"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 
-# pyenv
+# pyenv (lazy loaded)
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+
+_pyenv_lazy_load() {
+	unset -f pyenv python python3 pip pip3
+	eval "$(pyenv init --path)"
+}
+
+for _pyenv_cmd in pyenv python python3 pip pip3; do
+	eval "${_pyenv_cmd}() { _pyenv_lazy_load; ${_pyenv_cmd} \"\$@\"; }"
+done
+unset _pyenv_cmd
 
 # Added by Toolbox App
 export PATH="$PATH:/Users/florian/Library/Application Support/JetBrains/Toolbox/scripts"

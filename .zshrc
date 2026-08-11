@@ -36,7 +36,7 @@ function y() {
 
 # nvm settings (installed via homebrew) - lazy loaded, see below
 export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_HOMEBREW_PREFIX="$(brew --prefix)"
+export NVM_LAZY_HOMEBREW_PREFIX="$HOMEBREW_PREFIX"
 
 _nvm_lazy_load() {
   unset -f nvm node npm npx
@@ -99,11 +99,23 @@ _fzf_comprun() {
   esac
 }
 
-# pyenv-virtualenv init
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-
-# enable thefuck
-eval $(thefuck --alias)
+# enable thefuck (static output of `thefuck --alias`, pasted here to avoid a python subprocess on every shell start)
+fuck () {
+	TF_PYTHONIOENCODING=$PYTHONIOENCODING;
+	export TF_SHELL=zsh;
+	export TF_ALIAS=fuck;
+	TF_SHELL_ALIASES=$(alias);
+	export TF_SHELL_ALIASES;
+	TF_HISTORY="$(fc -ln -10)";
+	export TF_HISTORY;
+	export PYTHONIOENCODING=utf-8;
+	TF_CMD=$(
+		thefuck THEFUCK_ARGUMENT_PLACEHOLDER $@
+	) && eval $TF_CMD;
+	unset TF_HISTORY;
+	export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
+	test -n "$TF_CMD" && print -s $TF_CMD
+}
 
 # enable zoxide
 eval "$(zoxide init zsh)"
@@ -117,8 +129,8 @@ export SDKMAN_DIR="$HOME/.sdkman"
 eval "$(starship init zsh)"
 
 # enable  zsh-autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # enable zsh-syntax-highlighting
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
