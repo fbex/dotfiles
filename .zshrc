@@ -50,6 +50,26 @@ for _nvm_cmd in nvm node npm npx; do
 done
 unset _nvm_cmd
 
+# history: zsh defaults to SAVEHIST=1000, which silently truncates on every exit
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt extended_history        # record timestamp + duration per entry
+setopt append_history          # append rather than overwrite
+setopt share_history           # new tabs see commands from other live shells
+setopt hist_expire_dups_first  # drop dupes before unique entries when trimming
+setopt hist_ignore_dups        # skip consecutive repeats
+setopt hist_ignore_all_dups    # keep only the most recent copy of any command
+setopt hist_ignore_space       # leading space = don't record (for secrets)
+setopt hist_reduce_blanks      # normalise whitespace before storing
+setopt hist_verify             # expand !! into the buffer for review, don't run blind
+setopt hist_find_no_dups       # no repeated hits while searching
+
+# directory stack: complements zoxide (frecency-global) with session-recent nav
+setopt auto_pushd              # every cd pushes onto the dir stack
+setopt pushd_ignore_dups       # no duplicate stack entries
+setopt pushd_silent            # don't print the stack on every cd
+
 # completions (sdkman used to do this as a side effect)
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then compinit; else compinit -C; fi
@@ -68,6 +88,16 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
+
+# completion output: grouped, labelled, dirs first, cached for slow completers
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{cyan}-- %d --%f'
+zstyle ':completion:*:warnings'     format '%F{red}-- no matches --%f'
+zstyle ':completion:*' list-dirs-first true
+zstyle ':completion:*' special-dirs true    # complete ./ and ../
+zstyle ':completion:*' use-cache on         # matters for sdk, git, docker
+zstyle ':completion:*' cache-path "$HOME/.zcompcache"
+setopt interactive_comments                 # allow pasted # comments
 
 # fzf settings
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
