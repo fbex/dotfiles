@@ -57,6 +57,10 @@ if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then compinit; else compinit -C; fi
 # highlight the current entry while tabbing through completions + arrow-key nav
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# case-insensitive completion: try exact first, then fall back to ignoring case
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
+setopt no_case_glob   # ls ~/dev* also matches ~/Dev*
 zmodload zsh/complist
 bindkey '^[[Z' reverse-menu-complete              # shift+tab: cycle backwards
 bindkey -M menuselect '^[[Z' reverse-menu-complete
