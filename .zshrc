@@ -38,6 +38,18 @@ function y() {
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_HOMEBREW_PREFIX="$HOMEBREW_PREFIX"
 
+# Eagerly put the default node version's bin/ on PATH (cheap: just a glob, no
+# subprocess), so `node`/`npm` binaries and global CLI tools installed via npm
+# (e.g. ccstatusline) resolve immediately. The lazy functions below only patch
+# PATH when `nvm`/`node`/`npm`/`npx` itself is invoked, which doesn't help
+# anything else living in that bin/ dir - keep sourcing nvm.sh lazy though.
+if [ -s "$NVM_DIR/alias/default" ]; then
+  _nvm_default="$(<"$NVM_DIR/alias/default")"
+  _nvm_default_dirs=("$NVM_DIR"/versions/node/${_nvm_default}*(N/n))
+  [ -n "$_nvm_default_dirs[-1]" ] && path=("$_nvm_default_dirs[-1]/bin" $path)
+  unset _nvm_default _nvm_default_dirs
+fi
+
 _nvm_lazy_load() {
   unset -f nvm node npm npx
   [ -s "$NVM_LAZY_HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$NVM_LAZY_HOMEBREW_PREFIX/opt/nvm/nvm.sh" --no-use
@@ -76,7 +88,6 @@ if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then compinit; else compinit -C; fi
 
 # highlight the current entry while tabbing through completions + arrow-key nav
 zstyle ':completion:*' menu select
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # case-insensitive completion: try exact first, then fall back to ignoring case
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
