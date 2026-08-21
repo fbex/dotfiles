@@ -167,6 +167,13 @@ fuck () {
 eval "$(zoxide init zsh)"
 alias cd="z"
 
+# comes further down, so the work profile can override the general one. Placed before the
+# ZLE plugins below: zsh-syntax-highlighting must stay the final source so it sees
+# every widget defined before it.
+if [ -f "${HOME}/.zshrc_work" ]; then
+	source "${HOME}/.zshrc_work"
+fi
+
 # `sdk` itself is rare and slow to set up - load the real thing on first use.
 sdk() { unset -f sdk; source "$SDKMAN_DIR/bin/sdkman-init.sh"; sdk "$@"; }
 
