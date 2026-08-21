@@ -6,6 +6,11 @@ fi
 export XDG_CONFIG_HOME="$HOME/.config"
 (( $+commands[nvim] )) && export EDITOR="nvim"   # also required by yazi
 
+# ~/.zprofile gets the real value from `brew shellenv`, but that is login-only.
+# ~/.zshrc reads this var in four places (both ZLE plugins and the lazy nvm
+# wrappers), and those silently no-op in non-login interactive shells without it.
+export HOMEBREW_PREFIX=${HOMEBREW_PREFIX:-/opt/homebrew}
+
 # Toolchains: *_HOME vars and PATH entries must exist in EVERY shell, not just
 # interactive ones - `./gradlew`, Maven and IDE-less builds read JAVA_HOME, and
 # non-login shells (GUI tool shells, IDE run configs, launchd) read only this file.
