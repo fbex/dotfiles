@@ -1,5 +1,3 @@
-export XDG_CONFIG_HOME="$HOME/.config"
-
 # aliases
 alias dof="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 if [ -x "$(command -v lazygit)" ]; then
@@ -22,7 +20,6 @@ if [ -x "$(command -v bat)" ]; then
 fi
 if [ -x "$(command -v nvim)" ]; then
 	alias vim="nvim"
-  export EDITOR="nvim" # required for yazi
 fi
 
 # yazi wrapper to enable changing the CWD
@@ -34,21 +31,10 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# nvm settings (installed via homebrew) - lazy loaded, see below
-export NVM_DIR="$HOME/.nvm"
+# nvm settings (installed via homebrew) - lazy loaded, see below.
+# NVM_DIR and the eager PATH entry for the default node version live in
+# ~/.zshenv (_toolchain_path), so scripts and GUI tool shells get node too.
 export NVM_LAZY_HOMEBREW_PREFIX="$HOMEBREW_PREFIX"
-
-# Eagerly put the default node version's bin/ on PATH (cheap: just a glob, no
-# subprocess), so `node`/`npm` binaries and global CLI tools installed via npm
-# (e.g. ccstatusline) resolve immediately. The lazy functions below only patch
-# PATH when `nvm`/`node`/`npm`/`npx` itself is invoked, which doesn't help
-# anything else living in that bin/ dir - keep sourcing nvm.sh lazy though.
-if [ -s "$NVM_DIR/alias/default" ]; then
-  _nvm_default="$(<"$NVM_DIR/alias/default")"
-  _nvm_default_dirs=("$NVM_DIR"/versions/node/${_nvm_default}*(N/n))
-  [ -n "$_nvm_default_dirs[-1]" ] && path=("$_nvm_default_dirs[-1]/bin" $path)
-  unset _nvm_default _nvm_default_dirs
-fi
 
 _nvm_lazy_load() {
   unset -f nvm node npm npx
@@ -180,20 +166,6 @@ fuck () {
 # enable zoxide
 eval "$(zoxide init zsh)"
 alias cd="z"
-
-# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# sdkman: set env directly instead of sourcing sdkman-init.sh, which forks ~20
-# subprocesses (echo|tr, echo|grep per candidate) and costs ~85ms. The `sdk` CLI
-# is lazy-loaded below.
-export SDKMAN_DIR="$HOME/.sdkman"
-export SDKMAN_CANDIDATES_DIR="$SDKMAN_DIR/candidates"
-typeset -U path PATH
-for _sdk_d in $SDKMAN_CANDIDATES_DIR/*/current(N); do
-  _sdk_c=${${_sdk_d:h}:t}
-  export ${(U)_sdk_c}_HOME="$_sdk_d"
-  if [[ -d $_sdk_d/bin ]]; then path=("$_sdk_d/bin" $path); else path=("$_sdk_d" $path); fi
-done
-unset _sdk_d _sdk_c
 
 # `sdk` itself is rare and slow to set up - load the real thing on first use.
 sdk() { unset -f sdk; source "$SDKMAN_DIR/bin/sdkman-init.sh"; sdk "$@"; }

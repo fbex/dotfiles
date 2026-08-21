@@ -27,3 +27,9 @@ if [ -f "${HOME}/.zprofile_work" ]; then
 	source "${HOME}/.zprofile_work"
 fi
 
+# Re-apply the toolchain PATH order defined in ~/.zshenv, after every other file
+# has had its say. /etc/zprofile runs path_helper before us, which rebuilds PATH
+# from /etc/paths* and appends the rest - that would otherwise leave sdkman's
+# java behind /usr/bin's stub. Runs last so sdkman/nvm keep precedence.
+(( $+functions[_toolchain_path] )) && _toolchain_path
+
