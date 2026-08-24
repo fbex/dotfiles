@@ -3,15 +3,15 @@
 # cli
 brew 'bat'
 brew 'bpytop'
-brew 'hacker1024/hacker1024/coretemp'
 brew 'eza'
 brew 'fd'
 brew 'fzf'
+brew 'gh'
 brew 'git'
 brew 'git-delta'
 brew 'htop'
 brew 'lazygit'
-brew 'neofetch'
+cask 'mos'
 brew 'neovim'
 brew 'nvm'
 brew 'pyenv'
@@ -46,16 +46,4 @@ cask 'ghostty'
 cask 'istat-menus'
 cask 'keepassxc'
 cask 'vlc'
-
-# sketchybar
-#tap 'FelixKratz/formulae'
-#brew 'sketchybar'
-#brew 'borders'
-#cask 'font-hack-nerd-font'
-
-# removed
-#cask 'airbuddy'
-#cask 'mos'
-#cask 'nikitabobko/tap/aerospace'
-#cask 'raycast'
 
