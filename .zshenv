@@ -30,7 +30,12 @@ _toolchain_path() {
 	# installed via npm resolve immediately. Loading nvm.sh stays lazy in ~/.zshrc.
 	if [[ -s $NVM_DIR/alias/default ]]; then
 		dflt=$(<$NVM_DIR/alias/default)
-		node_dirs=($NVM_DIR/versions/node/${dflt}*(N/n))
+		# follow one hop of alias indirection, e.g. default -> "lts/*" -> "lts/krypton"
+		[[ -s $NVM_DIR/alias/$dflt ]] && dflt=$(<$NVM_DIR/alias/$dflt)
+		node_dirs=($NVM_DIR/versions/node/${dflt}*(N/on))
+		# codename aliases (e.g. "lts/krypton") don't match an install dir by prefix;
+		# fall back to the newest installed version rather than leaving PATH unset.
+		(( $#node_dirs )) || node_dirs=($NVM_DIR/versions/node/v*(N/on))
 		[[ -n $node_dirs[-1] ]] && path=($node_dirs[-1]/bin $path)
 	fi
 

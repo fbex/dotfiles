@@ -44,7 +44,14 @@ _nvm_lazy_load() {
 }
 
 for _nvm_cmd in nvm node npm npx; do
-  eval "${_nvm_cmd}() { _nvm_lazy_load; ${_nvm_cmd} \"\$@\"; }"
+  eval "${_nvm_cmd}() {
+    _nvm_lazy_load
+    if (( \$+functions[${_nvm_cmd}] )); then
+      echo \"${_nvm_cmd}: nvm lazy-load failed (unavailable in this shell)\" >&2
+      return 127
+    fi
+    ${_nvm_cmd} \"\$@\"
+  }"
 done
 unset _nvm_cmd
 
@@ -190,3 +197,4 @@ source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # enable zsh-syntax-highlighting
 source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+export PATH="$HOME/.local/bin:$PATH"
