@@ -3,6 +3,7 @@
 # cli
 brew 'bat'
 brew 'bpytop'
+brew 'chezmoi'
 brew 'eza'
 brew 'fd'
 brew 'fzf'
