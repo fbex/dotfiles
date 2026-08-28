@@ -1,32 +1,70 @@
 # Dotfiles
 
-This repository contains all my shared dotfiles, configs and scripts.
-It also contains a set of scripts to install the dotfiles along with additional software on new systems.
+My dotfiles, editor and terminal configs, and the Homebrew package lists that go with them.
 
-Dotfile management is done via the git bare repository method mentioned [here](https://www.atlassian.com/git/tutorials/dotfiles).
+[chezmoi](https://www.chezmoi.io) manages them. This repository is the source state: `dot_zshrc`
+here becomes `~/.zshrc` on the machine, and `chezmoi apply` does the writing. Filename prefixes
+carry file metadata, so `executable_launchKitty.sh` lands as an executable and
+`empty_dot_hushlogin` stays empty instead of being deleted.
 
-## Install dotfiles
+## Set up a new machine
 
-Requirements:
-- Git
-- Curl
+1. Install [Homebrew](https://brew.sh):
 
-Setup dotfile management in your $HOME directory by running:
+    ```
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ```
 
-	curl -Lks https://raw.githubusercontent.com/fbex/dotfiles/base/.bin/dotfiles/setup.sh | /bin/bash
+2. Install chezmoi and apply these dotfiles:
 
-## Install additional software
+    ```
+    brew install chezmoi
+    chezmoi init --apply fbex/dotfiles
+    ```
 
-Install [homebrew](https://brew.sh):
+    `--apply` writes the files straight away. To read them before anything touches `$HOME`, drop
+    the flag, then run `chezmoi diff` and `chezmoi apply` yourself.
 
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/setup.sh)"
- 
-Install the desired software sets:
+3. Install the software sets. `BrewfileBase` goes on every machine. Add one of the other two:
 
-	brew bundle --file $HOME/.bin/dotfiles/BrewfileBase
-	brew bundle --file $HOME/.bin/dotfiles/BrewfilePersonal
-	/bin/bash $HOME/.bin/dotfiles/post-install.sh
+    ```
+    brew bundle --file ~/.bin/dotfiles/BrewfileBase
+    brew bundle --file ~/.bin/dotfiles/BrewfilePersonal
+    ```
 
-Manually install:
-- [sdkman](https://sdkman.io/install)
+4. Install [SDKMAN](https://sdkman.io/install) by hand. `~/.zshenv` puts every installed candidate
+   on `PATH` and exports its `*_HOME` variable, so no further setup is needed.
 
+5. Restart the shell with `exec zsh`.
+
+## Change a dotfile
+
+The source state and `$HOME` are separate copies, so an edit has to travel between them.
+
+To edit a file through chezmoi, run `chezmoi edit ~/.zshrc`. This opens the source file. Then run
+`chezmoi diff` and `chezmoi apply`.
+
+If you edited `~/.zshrc` directly instead, run `chezmoi re-add` to copy the change back into the
+source state.
+
+Either way, commit and push from the source directory. The alias `d` opens lazygit there.
+
+| Command | What it does |
+| --- | --- |
+| `chezmoi diff` | Shows what `apply` would change. Worth running first, every time. |
+| `chezmoi apply` | Writes the source state to `$HOME`. |
+| `chezmoi edit <target>` | Edits the source file for a target. |
+| `chezmoi re-add` | Copies edits made directly in `$HOME` back into the source state. |
+| `chezmoi add <target>` | Starts managing a new file. |
+| `chezmoi update` | Pulls from this repository, then applies. |
+| `chezmoi cd` | Opens a subshell in the source directory. |
+| `chezmoi managed` | Lists every file and directory chezmoi manages. |
+| `chezmoi doctor` | Checks the installation and reports problems. |
+
+## Branches
+
+`main` holds the chezmoi source state and is the branch to use.
+
+`base` holds the old layout, from when a bare git repo at `~/.dotfiles` used `$HOME` as its work
+tree. It also holds `.bin/dotfiles/setup.sh`, the bootstrap script that layout needed. Keep the
+branch until the personal Mac is migrated, then delete it.
