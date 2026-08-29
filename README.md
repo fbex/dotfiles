@@ -19,11 +19,15 @@ carry file metadata, so `executable_launchKitty.sh` lands as an executable and
 
     ```
     brew install chezmoi
-    chezmoi init --apply fbex/dotfiles
+    chezmoi init --apply --ssh fbex/dotfiles
     ```
 
     `--apply` writes the files straight away. To read them before anything touches `$HOME`, drop
     the flag, then run `chezmoi diff` and `chezmoi apply` yourself.
+
+    `--ssh` clones over SSH (`git@github.com:fbex/dotfiles.git`) so pushes work without a further
+    step. Without it chezmoi clones over HTTPS, and the remote has to be switched afterwards with
+    `chezmoi git -- remote set-url origin git@github.com:fbex/dotfiles.git`.
 
 3. Install the software sets. `BrewfileBase` goes on every machine. Add one of the other two:
 
