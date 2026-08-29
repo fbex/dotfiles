@@ -1,0 +1,119 @@
+schema_version = 6
+
+[devices."receiver:45491817f11df611:slot:2"]
+dpi = 2550
+invert_scroll = true
+scroll_resolution = "low"
+
+[devices."receiver:45491817f11df611:slot:2".identity]
+display_name = "MX Master 3S"
+codename = "MX Master 3S"
+kind = "mouse"
+
+[app_settings]
+launch_at_login = false
+check_for_updates = false
+auto_install_updates = false
+update_prompt_seen = true
+show_in_menu_bar = true
+capture_mouse_events = true
+app_icon = "openlogi"
+auto_download_assets = true
+asset_source = "automatic"
+thumbwheel_sensitivity = 14
+appearance = "system"
+smooth_scroll = false
+vertical_scroll_sensitivity = 14
+ui_scale = "normal"
+device_view_mode = "grid"
+
+[devices."receiver:45491817f11df611:slot:2".identity.model_info]
+entity_count = 3
+unit_id = [
+    0,
+    0,
+    0,
+    0,
+]
+model_ids = [
+    45108,
+    0,
+    0,
+]
+extended_model_id = 0
+
+[devices."receiver:45491817f11df611:slot:2".identity.model_info.transports]
+usb = false
+equad = false
+btle = true
+bluetooth = false
+
+[devices."receiver:45491817f11df611:slot:2".identity.capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+haptic_feedback = false
+haptic_panel = false
+
+[devices."receiver:45491817f11df611:slot:2".bindings.GestureButton]
+Up = "AppExpose"
+Down = "ShowDesktop"
+Left = "PrevTab"
+Right = "NextTab"
+Click = "MissionControl"
+
+[devices."serial:2325lz50s3u8"]
+scroll_resolution = "low"
+invert_scroll = true
+dpi = 2550
+
+[devices."serial:2325lz50s3u8".identity]
+display_name = "MX Master 3S"
+codename = "MX Master 3S"
+kind = "mouse"
+
+[keyboard]
+
+[devices."serial:2325lz50s3u8".identity.model_info]
+entity_count = 3
+unit_id = [
+    0,
+    0,
+    0,
+    0,
+]
+model_ids = [
+    45108,
+    0,
+    0,
+]
+extended_model_id = 0
+
+[devices."serial:2325lz50s3u8".identity.model_info.transports]
+usb = false
+equad = false
+btle = true
+bluetooth = false
+
+[devices."serial:2325lz50s3u8".identity.capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+haptic_feedback = false
+haptic_panel = false
+
+[devices."serial:2325lz50s3u8".links."receiver:d373b832e73a453e:slot:2".capabilities]
+buttons = true
+pointer = true
+lighting = false
+scroll_inversion = true
+hires_wheel = true
+thumbwheel = true
+haptic_feedback = false
+haptic_panel = false
