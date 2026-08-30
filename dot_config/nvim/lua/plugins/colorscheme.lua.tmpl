@@ -1,0 +1,9 @@
+{{ $theme := index .themes .theme -}}
+return {
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "{{ $theme.nvim }}",
+    },
+  },
+}
