@@ -104,7 +104,7 @@ the tool:
 | Tool | Where themes come from |
 | --- | --- |
 | ghostty | Built in, 460+ of them. `ghostty +list-themes`. Nothing to install. |
-| bat | Built in. `bat --list-themes`. Otherwise drop a `.tmTheme` in `dot_config/bat/themes/` and run `bat cache --build`. |
+| bat | Built in. `bat --list-themes`. Otherwise drop a `.tmTheme` in `dot_config/bat/themes/` and run `bat cache --build`. bat and yazi both highlight with syntect, so a yazi flavour's `tmtheme.xml` works as-is — check its scope count first, flavour ones tend to be sparse. |
 | eza | [eza-community/eza-themes](https://github.com/eza-community/eza-themes) or [catppuccin/eza](https://github.com/catppuccin/eza). Save as `dot_config/eza/themes/<eza key>.yml` — the filename must match the key, since `theme.yml` is a symlink to it. |
 | yazi | [yazi-rs/flavors](https://github.com/yazi-rs/flavors), then its `themes.md` community list. `ya pkg add <repo>:<flavor>`, or copy the `.yazi` directory into `dot_config/yazi/flavors/`. |
 | nvim | The colorscheme's own plugin. Check the names it registers with `:colorscheme <Tab>`. |
@@ -115,21 +115,19 @@ For the two hand-written ones, Ghostty's theme files are the palette source. The
 `~/Applications/Ghostty.app/Contents/Resources/ghostty/themes/<Theme Name>` and carry the 16 ANSI
 colors plus background, foreground, cursor and selection.
 
-Assets for the four Catppuccin flavours and One Dark are already vendored.
+Assets for the four Catppuccin flavours, One Dark and Ayu Dark are already vendored. A newly
+vendored `.tmTheme` needs `bat cache --build` once after `chezmoi apply`.
 
 ### What limits the choice
 
 yazi is the bottleneck, with five official flavours and roughly six community ones. Catppuccin and
 Dracula are the only themes with first-party ports for all seven tools. Anything else needs a
-community yazi flavour, as One Dark does, or a compromise elsewhere — One Dark borrows bat's
-`TwoDark`, the closest built-in, and its ~10 colors are mapped onto starship's 26 Catppuccin-named
-palette slots, so some names reuse hues.
-
-### Gotcha
-
-Environment variables beat config files. `BAT_THEME` was exported in `.zprofile` and silently
-overrode `bat/config`, pinning bat to Catppuccin whatever the theme said. It has been removed. If a
-tool ignores its themed config, look for an env var override first.
+community yazi flavour, as One Dark and Ayu Dark do, or a compromise elsewhere — One Dark borrows
+bat's `TwoDark`, the closest built-in, and both map their ~10 colors onto starship's 26
+Catppuccin-named palette slots, so some names reuse hues. Ayu Dark reuses the `tmtheme.xml` that
+ships inside its yazi flavour as bat's theme, and its eza theme is hand-written; neither
+eza-themes nor bat has an Ayu port. That tmTheme has 83 scope rules against Catppuccin's 186, so
+highlighting is flatter — most visibly in JSON, where keys stay at plain foreground.
 
 ## Branches
 

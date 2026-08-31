@@ -1,6 +1,6 @@
 # ── Active theme ────────────────────────────────────────────────
 # Switch here, then `chezmoi apply`. Must match a key under `themes:`.
-theme: onedark
+theme: ayu-dark
 
 # ── Catalog ─────────────────────────────────────────────────────
 # One block per theme. One key per tool, holding that tool's own
@@ -77,6 +77,21 @@ themes:
       --color=marker:#98C379,fg+:#D7DAE0,prompt:#C678DD,hl+:#E06C75
       --color=selected-bg:#3E4451
       --color=border:#4B5263,label:#ABB2BF
+
+  ayu-dark:
+    ghostty: Ayu
+    bat: ayu                  # vendored tmTheme, from the yazi flavor
+    nvim: ayu-dark
+    nvim_plugin: Shatur/neovim-ayu       # optional: only for themes LazyVim lacks
+    yazi: ayu-dark
+    starship: ayu_dark
+    eza: ayu-dark
+    fzf: >-
+      --color=bg+:#1C2733,bg:#0B0E14,spinner:#95E6CB,hl:#F07178
+      --color=fg:#BFBDB6,header:#F07178,info:#D2A6FF,pointer:#95E6CB
+      --color=marker:#AAD94C,fg+:#BFBDB6,prompt:#D2A6FF,hl+:#F07178
+      --color=selected-bg:#253340
+      --color=border:#565B66,label:#BFBDB6
 
   # To add a theme: copy a block, fill in each tool's own name, then
   # install its assets (see .chezmoidata/README.md).
