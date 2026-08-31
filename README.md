@@ -65,6 +65,72 @@ Either way, commit and push from the source directory. The alias `d` opens lazyg
 | `chezmoi managed` | Lists every file and directory chezmoi manages. |
 | `chezmoi doctor` | Checks the installation and reports problems. |
 
+## Theming
+
+Ghostty, bat, eza, fzf, Neovim, starship and yazi all follow one setting: `theme:` at the top of
+`.chezmoidata/themes.yaml`. Change it, run `chezmoi apply`, and the seven configs are rewritten
+together. Zed is deliberately outside this and is themed in its own UI; kitty and sketchybar are
+unused.
+
+The rest of that file is the catalog: one block per theme, one key per tool holding *that tool's*
+name for it, because they all spell it differently.
+
+```yaml
+theme: onedark          # the only switch
+
+themes:
+  onedark:
+    ghostty: Atom One Dark
+    bat: TwoDark
+    nvim: onedark
+    nvim_plugin: navarasu/onedark.nvim   # optional, see below
+    yazi: onedark
+    starship: onedark
+    eza: onedark
+    fzf: >-
+      --color=bg+:#2C313C,bg:#21252B,...
+```
+
+The configs that consume it are templates, each opening with
+`{{ $theme := index .themes .theme -}}`. `fzf` has no named themes anywhere, so its key holds the
+literal `--color` string. `nvim_plugin` is optional and only needed for colorschemes LazyVim
+doesn't already ship — catppuccin and tokyonight it does, onedark it doesn't.
+
+### Adding a theme
+
+Copy a block, fill in each tool's name for the theme, then install whatever assets don't ship with
+the tool:
+
+| Tool | Where themes come from |
+| --- | --- |
+| ghostty | Built in, 460+ of them. `ghostty +list-themes`. Nothing to install. |
+| bat | Built in. `bat --list-themes`. Otherwise drop a `.tmTheme` in `dot_config/bat/themes/` and run `bat cache --build`. |
+| eza | [eza-community/eza-themes](https://github.com/eza-community/eza-themes) or [catppuccin/eza](https://github.com/catppuccin/eza). Save as `dot_config/eza/themes/<eza key>.yml` — the filename must match the key, since `theme.yml` is a symlink to it. |
+| yazi | [yazi-rs/flavors](https://github.com/yazi-rs/flavors), then its `themes.md` community list. `ya pkg add <repo>:<flavor>`, or copy the `.yazi` directory into `dot_config/yazi/flavors/`. |
+| nvim | The colorscheme's own plugin. Check the names it registers with `:colorscheme <Tab>`. |
+| starship | No catalog exists. Hand-write a `[palettes.<name>]` block in `starship.toml.tmpl`. |
+| fzf | No catalog exists. Hand-write the `--color` string. |
+
+For the two hand-written ones, Ghostty's theme files are the palette source. They are plain text at
+`~/Applications/Ghostty.app/Contents/Resources/ghostty/themes/<Theme Name>` and carry the 16 ANSI
+colors plus background, foreground, cursor and selection.
+
+Assets for the four Catppuccin flavours and One Dark are already vendored.
+
+### What limits the choice
+
+yazi is the bottleneck, with five official flavours and roughly six community ones. Catppuccin and
+Dracula are the only themes with first-party ports for all seven tools. Anything else needs a
+community yazi flavour, as One Dark does, or a compromise elsewhere — One Dark borrows bat's
+`TwoDark`, the closest built-in, and its ~10 colors are mapped onto starship's 26 Catppuccin-named
+palette slots, so some names reuse hues.
+
+### Gotcha
+
+Environment variables beat config files. `BAT_THEME` was exported in `.zprofile` and silently
+overrode `bat/config`, pinning bat to Catppuccin whatever the theme said. It has been removed. If a
+tool ignores its themed config, look for an env var override first.
+
 ## Branches
 
 `main` holds the chezmoi source state and is the branch to use.

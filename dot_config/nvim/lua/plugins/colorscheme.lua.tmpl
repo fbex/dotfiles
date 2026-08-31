@@ -1,5 +1,8 @@
 {{ $theme := index .themes .theme -}}
 return {
+{{- if hasKey $theme "nvim_plugin" }}
+  { "{{ $theme.nvim_plugin }}", lazy = false, priority = 1000 },
+{{- end }}
   {
     "LazyVim/LazyVim",
     opts = {

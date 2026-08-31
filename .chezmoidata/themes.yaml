@@ -1,6 +1,6 @@
 # ── Active theme ────────────────────────────────────────────────
 # Switch here, then `chezmoi apply`. Must match a key under `themes:`.
-theme: catppuccin-mocha
+theme: onedark
 
 # ── Catalog ─────────────────────────────────────────────────────
 # One block per theme. One key per tool, holding that tool's own
@@ -62,6 +62,21 @@ themes:
       --color=marker:#7287FD,fg+:#4C4F69,prompt:#8839EF,hl+:#D20F39
       --color=selected-bg:#BCC0CC
       --color=border:#9CA0B0,label:#4C4F69
+
+  onedark:
+    ghostty: Atom One Dark
+    bat: TwoDark              # closest built-in; no true One Dark tmTheme
+    nvim: onedark
+    nvim_plugin: navarasu/onedark.nvim   # optional: only for themes LazyVim lacks
+    yazi: onedark
+    starship: onedark
+    eza: onedark
+    fzf: >-
+      --color=bg+:#2C313C,bg:#21252B,spinner:#56B6C2,hl:#E06C75
+      --color=fg:#ABB2BF,header:#E06C75,info:#C678DD,pointer:#56B6C2
+      --color=marker:#98C379,fg+:#D7DAE0,prompt:#C678DD,hl+:#E06C75
+      --color=selected-bg:#3E4451
+      --color=border:#4B5263,label:#ABB2BF
 
   # To add a theme: copy a block, fill in each tool's own name, then
   # install its assets (see .chezmoidata/README.md).
