@@ -55,8 +55,10 @@ catppuccin/tokyonight don't). eza is a symlink template — the theme file must 
 Adding a theme means adding a catalog block **and** vendoring assets the tools don't ship (bat
 `.tmTheme`, eza `.yml`, yazi `.yazi` flavor dir). bat and yazi are both syntect, so a flavor's
 `tmtheme.xml` doubles as the bat theme — what ayu-dark does, at the cost of sparser scope
-coverage. README.md has the per-tool source table and the list of what limits theme choice
-(yazi flavors are the bottleneck).
+coverage. ayu's copy is patched (one added rule for JSON keys) and must stay byte-identical
+across `dot_config/bat/themes/` and the flavor dir; upgrading the flavor reverts it. README.md
+has the per-tool source table and the list of what limits theme choice (yazi flavors are the
+bottleneck).
 
 ## zsh layout
 

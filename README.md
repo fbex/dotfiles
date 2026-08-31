@@ -126,8 +126,16 @@ community yazi flavour, as One Dark and Ayu Dark do, or a compromise elsewhere �
 bat's `TwoDark`, the closest built-in, and both map their ~10 colors onto starship's 26
 Catppuccin-named palette slots, so some names reuse hues. Ayu Dark reuses the `tmtheme.xml` that
 ships inside its yazi flavour as bat's theme, and its eza theme is hand-written; neither
-eza-themes nor bat has an Ayu port. That tmTheme has 83 scope rules against Catppuccin's 186, so
-highlighting is flatter — most visibly in JSON, where keys stay at plain foreground.
+eza-themes nor bat has an Ayu port. That tmTheme has 84 scope rules against Catppuccin's 186, so
+highlighting is flatter. One of those rules is local: upstream has none for
+`source.json meta.mapping.key string`, so JSON keys fell through to the generic string colour
+(green). The vendored copy adds it, in Ayu's own `#39BAE6`. **It is therefore patched** —
+`dot_config/bat/themes/ayu.tmTheme` and `dot_config/yazi/flavors/ayu-dark.yazi/tmtheme.xml` are
+kept byte-identical by hand, and a `ya pkg upgrade` of the flavour will silently revert it.
+
+Note the upstream Sublime package (`dempfi/ayu`) is *not* a fallback source: it ships only
+`.sublime-color-scheme`, which bat ignores without error — `bat cache --build` succeeds and the
+theme never appears in `--list-themes`.
 
 ## Branches
 

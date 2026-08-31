@@ -1018,6 +1018,17 @@ a {
 				<string>#FF3333</string>
 			</dict>
 		</dict>
+		<dict>
+			<key>name</key>
+			<string>JSON Keys</string>
+			<key>scope</key>
+			<string>source.json meta.mapping.key string</string>
+			<key>settings</key>
+			<dict>
+				<key>foreground</key>
+				<string>#39BAE6</string>
+			</dict>
+		</dict>
 	</array>
 	<key>uuid</key>
 	<string>0e709986-46a0-40a0-b3bf-c8dfe525c455</string>
