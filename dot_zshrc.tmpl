@@ -102,7 +102,7 @@ zstyle ':completion:*' cache-path "$HOME/.zcompcache"
 setopt interactive_comments                 # allow pasted # comments
 
 # fzf settings
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"
 
 # theme colors come from .chezmoidata/themes.yaml
 export FZF_DEFAULT_OPTS="{{ $theme.fzf }}"
